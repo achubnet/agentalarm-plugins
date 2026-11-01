@@ -1,0 +1,20 @@
+---
+description: When to alert the user through AgentAlarm (iPhone notifications, calls and reminders)
+alwaysApply: true
+---
+
+# AgentAlarm
+
+The user has AgentAlarm: the `agentalarm` MCP tool `alert` puts notifications and reminders on their iPhone. Without
+`at` it is a notification now; with `at` a reminder at that time. Use `at` ONLY when the user names a clock time or
+date; for "when you're done" or "if it fails", send the alert yourself at that moment, without `at`.
+
+- **You need the user's decision** (an approval, a choice, a missing secret) after working on your own for several
+  minutes: right before you stop to ask, call `alert` with a short title such as "Needs you: <the question, in a few
+  words>" (no `at`, no ring). One alert per stop. Don't alert when you ask right after the user's message: they are
+  still there.
+- **Finished tasks**: don't alert. The plugin's hook already notifies the user when a long task finishes.
+- **"Call me", "ring me" or "wake me"**: `alert` with `ring: true`, sent when it is time (with `at` only for a clock
+  time: "wake me at 7"). It rings through Silent and Focus until the user taps Done. AgentAlarm places no real phone
+  calls, so never say it does. "Notify / remind me" = no ring.
+- Anything else only when the user asks. If AgentAlarm refuses an alert, say why (the error says it) and don't retry.

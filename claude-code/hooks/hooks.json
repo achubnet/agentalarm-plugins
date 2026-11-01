@@ -1,0 +1,27 @@
+{
+  "description": "AgentAlarm: notify your iPhone when a long task finishes or Claude needs your decision. The rules (only when away, minimum task length, cooldown, pause) live in `agentalarm setup`.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "npx -y agentalarm hook claude-code", "async": true, "timeout": 30 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "npx -y agentalarm hook claude-code", "async": true, "timeout": 30 }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|elicitation_dialog|elicitation_url_dialog|agent_needs_input",
+        "hooks": [
+          { "type": "command", "command": "npx -y agentalarm hook claude-code", "async": true, "timeout": 30 }
+        ]
+      }
+    ]
+  }
+}

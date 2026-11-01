@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "agentalarm": {
+      "type": "http",
+      "url": "https://alarm.achub.net/mcp",
+      "headersHelper": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/mcp-headers.mjs\""
+    }
+  }
+}

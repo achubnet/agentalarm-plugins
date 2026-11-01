@@ -1,0 +1,14 @@
+{
+  "name": "agentalarm",
+  "displayName": "AgentAlarm",
+  "version": "0.1.0",
+  "description": "Quiet iPhone notifications when a long task finishes or Claude needs your decision (only when you are away), and the AgentAlarm MCP tools so Claude can set reminders or ring your phone when you ask.",
+  "author": {
+    "name": "AgentAlarm",
+    "url": "https://alarm.achub.net"
+  },
+  "homepage": "https://alarm.achub.net",
+  "repository": "https://github.com/achubnet/agentalarm-plugins",
+  "license": "MIT",
+  "keywords": ["iphone", "alarm", "notifications", "reminders", "hooks", "mcp"]
+}

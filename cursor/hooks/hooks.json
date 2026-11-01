@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "sh \"${CURSOR_PLUGIN_ROOT}/scripts/hook.sh\"",
+        "timeout": 15
+      }
+    ],
+    "stop": [
+      {
+        "command": "sh \"${CURSOR_PLUGIN_ROOT}/scripts/hook.sh\"",
+        "timeout": 15
+      }
+    ]
+  }
+}

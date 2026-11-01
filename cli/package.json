@@ -1,0 +1,30 @@
+{
+  "name": "agentalarm",
+  "version": "0.1.0",
+  "description": "Let AI agents, scripts and CI ring your iPhone through AgentAlarm: urgent alerts ring through Silent and Focus.",
+  "keywords": ["agentalarm", "alarm", "iphone", "notifications", "claude-code", "cursor", "codex", "hooks", "mcp", "ai-agents"],
+  "homepage": "https://alarm.achub.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achubnet/agentalarm-plugins.git",
+    "directory": "cli"
+  },
+  "license": "MIT",
+  "author": "AgentAlarm",
+  "type": "module",
+  "bin": {
+    "agentalarm": "bin/agentalarm.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

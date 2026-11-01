@@ -1,0 +1,16 @@
+{
+  "name": "agentalarm",
+  "owner": {
+    "name": "AgentAlarm"
+  },
+  "metadata": {
+    "description": "AgentAlarm: your AI agents reach your iPhone when a long task finishes or they need you."
+  },
+  "plugins": [
+    {
+      "name": "agentalarm",
+      "source": "cursor",
+      "description": "Quiet iPhone notifications when a long Cursor task finishes, and the AgentAlarm MCP tools for reminders and urgent alerts."
+    }
+  ]
+}

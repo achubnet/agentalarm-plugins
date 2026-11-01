@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "agentalarm": {
+      "command": "npx",
+      "args": ["-y", "agentalarm", "mcp"]
+    }
+  }
+}

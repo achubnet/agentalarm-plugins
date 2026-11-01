@@ -1,0 +1,17 @@
+{
+  "name": "agentalarm",
+  "description": "AgentAlarm: your AI agents reach your iPhone when a long task finishes or they need you.",
+  "owner": {
+    "name": "AgentAlarm",
+    "url": "https://alarm.achub.net"
+  },
+  "plugins": [
+    {
+      "name": "agentalarm",
+      "source": "./claude-code",
+      "description": "Quiet iPhone notifications when a long Claude Code task finishes or Claude needs your decision, plus the AgentAlarm MCP tools.",
+      "category": "productivity",
+      "homepage": "https://alarm.achub.net"
+    }
+  ]
+}

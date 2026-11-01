@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.achubnet/agentalarm",
+  "title": "AgentAlarm",
+  "description": "Notifications, calls and reminders on the user's iPhone. Calls ring through Silent and Focus.",
+  "version": "0.1.0",
+  "websiteUrl": "https://alarm.achub.net",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://alarm.achub.net/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer <key>. Get a key from the AgentAlarm iPhone app: Settings > Connected Agents > Connect.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
