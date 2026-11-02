@@ -44,6 +44,7 @@ test('a key always goes to the server it belongs to: env key with env URL or the
   assert.deepEqual(credentials(saved, { AGENTALARM_KEY: 'ci', AGENTALARM_URL: 'https://self.hosted/' }), { key: 'ci', baseUrl: 'https://self.hosted', fromEnv: true });
   assert.deepEqual(credentials(saved, {}), { key: 'saved', baseUrl: 'https://tampered.example', fromEnv: false });
   assert.deepEqual(credentials(saved, { AGENTALARM_URL: 'https://elsewhere.example' }), { key: 'saved', baseUrl: 'https://tampered.example', fromEnv: false });
+  assert.deepEqual(credentials(saved, { CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY: 'plugin', AGENTALARM_URL: 'https://evil.example' }), { key: 'plugin', baseUrl: 'https://alarm.achub.net', fromEnv: true });
 });
 
 test('AGENTALARM_KEY wins over the saved key', () => {

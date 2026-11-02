@@ -81,13 +81,17 @@ export const PLUGIN_KEY_ENV = 'CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY';
 
 /**
  * The key and the server it belongs to; a key is never sent to another key's server. AGENTALARM_KEY (CI) wins, then
- * the Claude Code plugin's key option; both go to AGENTALARM_URL or the default server, never to the config file's.
+ * the Claude Code plugin's key option, which only ever goes to the default server; AGENTALARM_KEY goes to AGENTALARM_URL
+ * or the default server, never to the config file's.
  * The saved key goes to its saved server.
  */
 export function credentials(config, env = process.env) {
   const trimmed = (url) => url.replace(/\/+$/, '');
-  const envKey = (env.AGENTALARM_KEY || '').trim() || (env[PLUGIN_KEY_ENV] || '').trim();
-  if (envKey) return { key: envKey, baseUrl: trimmed(env.AGENTALARM_URL || DEFAULT_BASE_URL), fromEnv: true };
+  const ciKey = (env.AGENTALARM_KEY || '').trim();
+  if (ciKey) return { key: ciKey, baseUrl: trimmed(env.AGENTALARM_URL || DEFAULT_BASE_URL), fromEnv: true };
+  // The plugin's key option belongs to the hosted service only: no environment variable can send it elsewhere.
+  const pluginKey = (env[PLUGIN_KEY_ENV] || '').trim();
+  if (pluginKey) return { key: pluginKey, baseUrl: trimmed(DEFAULT_BASE_URL), fromEnv: true };
   const key = typeof config.key === 'string' ? config.key.trim() : '';
   return { key: key || null, baseUrl: trimmed(config.baseUrl || DEFAULT_BASE_URL), fromEnv: false };
 }
