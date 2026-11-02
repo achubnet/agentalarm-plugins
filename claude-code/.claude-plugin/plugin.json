@@ -1,7 +1,7 @@
 {
   "name": "agentalarm",
   "displayName": "AgentAlarm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Quiet iPhone notifications when a long task finishes or Claude needs your decision (only when you are away), and the AgentAlarm MCP tools so Claude can set reminders or ring your phone when you ask.",
   "author": {
     "name": "AgentAlarm",
@@ -10,5 +10,19 @@
   "homepage": "https://alarm.achub.net",
   "repository": "https://github.com/achubnet/agentalarm-plugins",
   "license": "MIT",
-  "keywords": ["iphone", "alarm", "notifications", "reminders", "hooks", "mcp"]
+  "keywords": ["iphone", "alarm", "notifications", "reminders", "hooks", "mcp"],
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://alarm.achub.net/docs/",
+  "supportUrl": "https://alarm.achub.net/en/support/",
+  "privacyPolicyUrl": "https://alarm.achub.net/privacy.html",
+  "termsOfServiceUrl": "https://alarm.achub.net/terms.html",
+  "userConfig": {
+    "agentalarm_key": {
+      "type": "string",
+      "title": "AgentAlarm key (for the hooks)",
+      "description": "Lets the hooks notify your iPhone when a task finishes or Claude needs your decision. Get one with /agentalarm:setup. Leave empty if you ran \"agentalarm login\" in a terminal. The MCP tools sign in separately (/mcp, Authenticate).",
+      "sensitive": true,
+      "required": false
+    }
+  }
 }

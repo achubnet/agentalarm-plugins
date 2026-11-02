@@ -53,6 +53,15 @@ test('AGENTALARM_KEY wins over the saved key', () => {
   assert.equal(credentials({}, {}).baseUrl, 'https://alarm.achub.net');
 });
 
+test('the Claude Code plugin key option: after AGENTALARM_KEY, before the saved key, never to the saved server', () => {
+  const saved = { key: 'saved', baseUrl: 'http://127.0.0.1:8000' };
+  const plugin = { CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY: ' plugin ' };
+  assert.deepEqual(credentials(saved, plugin), { key: 'plugin', baseUrl: 'https://alarm.achub.net', fromEnv: true });
+  assert.equal(credentials(saved, { ...plugin, AGENTALARM_KEY: 'ci' }).key, 'ci');
+  assert.equal(credentials(saved, { CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY: '' }).key, 'saved');
+  assert.equal(credentials({}, plugin).key, 'plugin');
+});
+
 test('hook settings: defaults, then the file, then the environment; bad values are ignored', () => {
   assert.deepEqual(hookSettings({}, {}), HOOK_DEFAULTS);
   assert.equal(HOOK_DEFAULTS.ringOnDecision, false);

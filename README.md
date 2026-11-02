@@ -36,7 +36,10 @@ AgentAlarm is not affiliated with Anthropic, OpenAI, Anysphere, Microsoft or xAI
    `~/.config/agentalarm/config.json` (mode 600), then asks when hooks should alert you. `npx agentalarm test` rings
    your phone once.
 4. **Install the plugin** for your agent:
-   - Claude Code: `/plugin marketplace add achubnet/agentalarm-plugins`, then `/plugin install agentalarm@agentalarm`.
+   - Claude Code: `/plugin marketplace add achubnet/agentalarm-plugins`, then `/plugin install agentalarm@agentalarm`
+     and `/agentalarm:setup`. Its MCP server signs in with OAuth (`/mcp`, Authenticate, approve on the iPhone); its
+     hooks take a key in the plugin's **AgentAlarm key** option, or use the one from `agentalarm login`. See
+     [claude-code/README.md](claude-code/README.md).
    - Cursor: install "AgentAlarm" from the Cursor Marketplace (or, for a team marketplace, Import from Repo with
      `https://github.com/achubnet/agentalarm-plugins`).
    - Codex: add the hooks below to `~/.codex/hooks.json`.
@@ -63,7 +66,8 @@ agentalarm config set minTaskMinutes 10               # one hook option; `agenta
   one day, 500 unfinished, 200 created a day; the server's message is printed). The same title from the same key within
   2 minutes updates the notification it sent instead of adding one.
 - `AGENTALARM_KEY` in the environment wins over the saved key (CI). `agentalarm logout` revokes the key on the server
-  and removes it locally.
+  and removes it locally. In the Claude Code plugin's hooks, its **AgentAlarm key** option
+  (`CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY`) comes after `AGENTALARM_KEY` and before the saved key.
 - `agentalarm mcp` is a local stdio MCP server that forwards to `https://alarm.achub.net/mcp` with the saved key, for
   clients that should not hold the key in their own config (the Cursor plugin uses it).
 
@@ -164,19 +168,21 @@ agentalarm "Deployed $APP $(git rev-parse --short HEAD)" --color green
 
 - The key is created only when the one-time link is redeemed; it is saved in `~/.config/agentalarm/config.json`
   (`$XDG_CONFIG_HOME` is honoured), directory 700, file 600. It never goes into command-line arguments, URLs or logs,
-  and `agentalarm status` never prints it. The macOS Keychain is not used: the plugins' helpers read the same file.
+  and `agentalarm status` never prints it. The macOS Keychain is not used: the Cursor plugin's `agentalarm mcp` reads
+  the same file. The Claude Code plugin does not read it for MCP (OAuth); its hooks prefer the key in the plugin's
+  sensitive option, which Claude Code keeps in the system's credential store.
 - Network calls use HTTPS only (plain HTTP only to localhost, for development), with a 10 s timeout and no redirects.
 - `agentalarm login` and `agentalarm key` redeem links only on `https://alarm.achub.net` (or localhost, for
   development) and print the server before redeeming; links with a user name or password are refused. A self-hosted
   server needs `--server <origin>`.
 - A key goes only to its own server: `AGENTALARM_KEY` to `AGENTALARM_URL` (or `https://alarm.achub.net`), the saved
-  key to the server it came from. The Claude Code plugin's `headersHelper` follows the same rule.
+  key to the server it came from. The Claude Code plugin's key option counts as an environment key.
 - Revoke any key in the app (Settings > Connected Agents) or with `agentalarm logout`.
 
 ## Development
 
 ```bash
-cd cli && npm test              # unit and end-to-end tests against a local fake server
+cd cli && npm test               # unit and end-to-end tests against a local fake server
 claude plugin validate .        # this folder is the marketplace root (.claude-plugin/marketplace.json)
 ```
 

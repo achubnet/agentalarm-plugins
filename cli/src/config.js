@@ -76,13 +76,17 @@ export function updateConfig(change, env = process.env) {
   return config;
 }
 
+/** The Claude Code plugin's `agentalarm_key` option (sensitive); Claude Code exports it to the plugin's hooks. */
+export const PLUGIN_KEY_ENV = 'CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY';
+
 /**
- * The key and the server it belongs to; a key is never sent to another key's server. AGENTALARM_KEY (CI) wins and
- * goes to AGENTALARM_URL or the default server, never to the config file's; the saved key goes to its saved server.
+ * The key and the server it belongs to; a key is never sent to another key's server. AGENTALARM_KEY (CI) wins, then
+ * the Claude Code plugin's key option; both go to AGENTALARM_URL or the default server, never to the config file's.
+ * The saved key goes to its saved server.
  */
 export function credentials(config, env = process.env) {
   const trimmed = (url) => url.replace(/\/+$/, '');
-  const envKey = (env.AGENTALARM_KEY || '').trim();
+  const envKey = (env.AGENTALARM_KEY || '').trim() || (env[PLUGIN_KEY_ENV] || '').trim();
   if (envKey) return { key: envKey, baseUrl: trimmed(env.AGENTALARM_URL || DEFAULT_BASE_URL), fromEnv: true };
   const key = typeof config.key === 'string' ? config.key.trim() : '';
   return { key: key || null, baseUrl: trimmed(config.baseUrl || DEFAULT_BASE_URL), fromEnv: false };
