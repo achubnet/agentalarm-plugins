@@ -3,8 +3,13 @@
   "name": "io.github.achubnet/agentalarm",
   "title": "AgentAlarm",
   "description": "Notifications, reminders and alarm-style alerts on the user's iPhone. Sign in with OAuth.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://alarm.achub.net",
+  "repository": {
+    "url": "https://github.com/achubnet/agentalarm-plugins",
+    "source": "github",
+    "subfolder": "mcp-registry"
+  },
   "remotes": [
     {
       "type": "streamable-http",
