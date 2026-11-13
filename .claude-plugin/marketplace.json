@@ -9,7 +9,7 @@
     {
       "name": "agentalarm",
       "source": "./claude-code",
-      "description": "Quiet iPhone notifications when a long Claude Code task finishes or Claude needs your decision, plus the AgentAlarm MCP tools.",
+      "description": "The AgentAlarm MCP tools: Claude puts reminders, lists, notifications and task progress on your iPhone when you ask.",
       "category": "productivity",
       "homepage": "https://alarm.achub.net"
     }

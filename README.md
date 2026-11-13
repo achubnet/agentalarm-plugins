@@ -12,7 +12,7 @@ an alert, and a CLI sends alerts from any script.
 | Folder | What it is |
 |---|---|
 | [`cli/`](cli/) | `agentalarm` on npm: `npx agentalarm "text"`, login, hooks, a local MCP bridge. Node 18+, no dependencies. |
-| [`claude-code/`](claude-code/) | Claude Code plugin: hooks, the MCP server, `/agentalarm:setup`. |
+| [`claude-code/`](claude-code/) | Claude Code plugin: the MCP server, `/agentalarm:setup`. The Claude Code hooks are a separate plugin: [achubnet/agentalarm-hooks](https://github.com/achubnet/agentalarm-hooks). |
 | [`cursor/`](cursor/) | Cursor plugin: hooks, a rule, the MCP server, a setup skill. |
 
 **The default is quiet:** hooks send notifications (no time) for "task finished" and "needs your decision", only while
@@ -37,9 +37,10 @@ AgentAlarm is not affiliated with Anthropic, OpenAI, Anysphere, Microsoft or xAI
    your phone once.
 4. **Install the plugin** for your agent:
    - Claude Code: `/plugin marketplace add achubnet/agentalarm-plugins`, then `/plugin install agentalarm@agentalarm`
-     and `/agentalarm:setup`. Its MCP server signs in with OAuth (`/mcp`, Authenticate, approve on the iPhone); its
-     hooks take a key in the plugin's **AgentAlarm key** option, or use the one from `agentalarm login`. See
-     [claude-code/README.md](claude-code/README.md).
+     and `/agentalarm:setup`. Its MCP server signs in with OAuth (`/mcp`, Authenticate, approve on the iPhone). See
+     [claude-code/README.md](claude-code/README.md). For the hooks: `/plugin marketplace add achubnet/agentalarm-hooks`,
+     then `/plugin install agentalarm-hooks@agentalarm-hooks` and `/agentalarm-hooks:setup`; they take a key in the
+     plugin's **AgentAlarm key** option, or use the one from `agentalarm login`.
    - Cursor: install "AgentAlarm" from the Cursor Marketplace (or, for a team marketplace, Import from Repo with
      `https://github.com/achubnet/agentalarm-plugins`).
    - Codex: add the hooks below to `~/.codex/hooks.json`.
@@ -66,7 +67,7 @@ agentalarm config set minTaskMinutes 10               # one hook option; `agenta
   one day, 500 unfinished, 200 created a day; the server's message is printed). The same title from the same key within
   2 minutes updates the notification it sent instead of adding one.
 - `AGENTALARM_KEY` in the environment wins over the saved key (CI). `agentalarm logout` revokes the key on the server
-  and removes it locally. In the Claude Code plugin's hooks, its **AgentAlarm key** option
+  and removes it locally. In the Claude Code hooks plugin, its **AgentAlarm key** option
   (`CLAUDE_PLUGIN_OPTION_AGENTALARM_KEY`) comes after `AGENTALARM_KEY` and before the saved key.
 - `agentalarm mcp` is a local stdio MCP server that forwards to `https://alarm.achub.net/mcp` with the saved key, for
   clients that should not hold the key in their own config (the Cursor plugin uses it).
